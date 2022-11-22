@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y \
       docker-php-ext-install bcmath && \
       docker-php-ext-install gd && \
       docker-php-ext-install zip && \
-      pecl install -o -f xdebug && \
-      docker-php-ext-enable xdebug && \
+    #   pecl install -o -f xdebug && \
+    #   docker-php-ext-enable xdebug && \
       apt-get clean && \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -32,7 +32,7 @@ RUN passwd -d root
 
 
 COPY ./_docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
-COPY ./_docker/app/99-xdebug.ini /usr/local/etc/php/conf.d/99-xdebug.ini
+# COPY ./_docker/app/99-xdebug.ini /usr/local/etc/php/conf.d/99-xdebug.ini
 RUN sed -ri 's/listen = 127.0.0.1:9000/listen = 127.0.0.1:9009/' /usr/local/etc/php-fpm.d/www.conf
 RUN sed -ri 's/listen = 9000/listen = 9009/' /usr/local/etc/php-fpm.d/zz-docker.conf
 
