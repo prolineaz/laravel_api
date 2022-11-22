@@ -1,0 +1,20 @@
+ll
+cd /var/www/
+ll
+ll ~/.bash_history 
+cat ~/.bash_history 
+vim vite.config.js 
+htop
+docker images
+apt-get update
+apt-get install cron
+vim /etc/crontab 
+./vendor/bin/phpstan analyse
+composer require nunomaduro/larastan --dev
+composer require nunomaduro/larastan --dev
+./vendor/bin/phpstan analyse
+./vendor/bin/phpstan analyse
+./vendor/bin/phpstan analyse
+./vendor/bin/phpstan analyse
+./vendor/bin/phpstan analyse
+ll /usr/local/bin/

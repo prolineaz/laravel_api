@@ -1,0 +1,69 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./_docker/nginx/logs/:/var/log/nginx/
+      - ./:/var/www/
+    ports:
+      - "8020:80"
+    depends_on:
+      - app
+    container_name: softlightt3_nginx
+    networks:
+      - softlightt3
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    volumes:
+    #  - ./_docker/db/postgresql/data:/var/lib/postgresql/data
+     - pgvol:/var/lib/postgresql/data
+     - ./_docker/db/initdb/:/docker-entrypoint-initdb.d
+    networks:
+     - softlightt3
+    ports:
+      - "5432:5432"
+    container_name: softlightt3_db
+  pgadmin4:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "demo@demo.demo"
+      PGADMIN_DEFAULT_PASSWORD: "123456"
+    ports:
+     - "8010:80"
+    depends_on:
+     - db
+    container_name: softlightt3_pgadmin4
+    networks:
+     - softlightt3
+  app:
+    build:
+      context: ./
+      dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/
+      - ./_docker/vscode-server/:/root/.vscode-server/
+      - ./_docker/app/ssh/bashrc:/root/.bashrc
+      - ./_docker/app/ssh/bash_history:/root/.bash_history
+    depends_on:
+      - db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "2222:22"
+    container_name: softlightt3_app
+    networks:
+      - softlightt3
+volumes:
+    pgvol:  
+networks:
+  softlightt3:
+    driver: bridge
