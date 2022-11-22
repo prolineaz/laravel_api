@@ -47,54 +47,69 @@ docker-compose exec app php artisan test
 
 #### Auth
 
-**Method**: POST, **Action**: Login 
+**Method**: POST, **Action**: Login
+
 `/api/auth/login`
 
 **Method**: POST, **Action**: Register  
+
 `/api/auth/register`
 
 **Method**: POST, **Action**: Logout  
+
 `/api/auth/logout`
 
 **Method**: POST, **Action**: Refresh token  
+
 `/api/auth/refresh`
 
 
 #### Comments
 
 **Method**:  GET,  **Action**: Return all comments
+
 `/api/comment`
 
 **Method**:  POST,  **Action**: Add new comment
+
 `/api/comment/store`
 
 **Method**:  GET,  **Action**: Show comment by id 
+
 `/api/comment/{id}`
 
 **Method**:  POST,  **Action**: Update comment by id 
+
 `/api/comment/{id}/update`
 
 **Method**:  POST,  **Action**: Delete comment by id  
+
 `/api/comment/{id}/destroy`
 
 #### Posts
 
 **Method**:  GET,  **Action**: Return all posts belong to current user and all comments of each user 
+
 `/api/posts`
 
 **Method**:  POST,  **Action**: Add new post 
+
 `/api/posts/store`
 
 **Method**:  GET,  **Action**: Show post by id 
+
 `/api/posts/{id}`
 
 **Method**:  POST,  **Action**: Update post by id  
+
 `/api/posts/{id}/update`
 
 **Method**:  POST,  **Action**: Delete post by id  
+
 `/api/posts/{id}/destroy`
 
 #### Users
 
 **Method**:  GET,  **Action**: Return all users with posts and all comments which the current user left under any post 
+
 `/api/users`
