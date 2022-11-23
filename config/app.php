@@ -197,7 +197,7 @@ return [
 
         L5Swagger\L5SwaggerServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -210,9 +210,10 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
-
+    
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
     ])->toArray(),
 
 ];
