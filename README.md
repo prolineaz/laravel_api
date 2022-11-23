@@ -20,7 +20,7 @@ docker-compose exec app composer install --ignore-platform-reqs --no-interaction
 ```
 Provide write permissions
 ```bash
-docker-compose exec app chmod -R 777 ./storage ./.phpunit.result.cache
+docker-compose exec app chmod -R 777 ./storage ./.phpunit.result.cache ./bootstrap
 ```
 
 ## Ports and web resources
