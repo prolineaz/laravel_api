@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\Comments\CreateCommentRequest;
 use App\Http\Requests\Comments\UpdateCommentRequest;
+use App\Http\Resources\CommentsResource;
 use App\Models\Comments;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -13,27 +14,31 @@ class CommentsService
     /**
      * Get all comments
      *
-     * @return array
+     * @return mixed
      */
     public function getAllComments()
     {
-        $comments = Comments::select(
-            'comments.id',
-            DB::raw("json_build_object(
-                'id', users.id,
-                'name', users.name,
-                'email', users.email
-            ) AS user"),
-            'comments.comment',
-            'comments.created_at',
-        )
-            ->join('users', 'users.id', '=', 'comments.user_id')
-            ->get()->toArray();
+        $comments = Comments::with(['user'])->get();
+        return CommentsResource::collection($comments);
 
-        return array_map(function ($comment) {
-            $comment['user'] = json_decode($comment['user'], true);
-            return $comment;
-        }, $comments);
+        /** Example of native SQL */
+        // $comments = Comments::select(
+        //     'comments.id',
+        //     DB::raw("json_build_object(
+        //         'id', users.id,
+        //         'name', users.name,
+        //         'email', users.email
+        //     ) AS user"),
+        //     'comments.comment',
+        //     'comments.created_at',
+        // )
+        //     ->join('users', 'users.id', '=', 'comments.user_id')
+        //     ->get()->toArray();
+
+        // return array_map(function ($comment) {
+        //     $comment['user'] = json_decode($comment['user'], true);
+        //     return $comment;
+        // }, $comments);
     }
 
     /**
@@ -55,28 +60,32 @@ class CommentsService
      * Get comment by Id
      *
      * @param  mixed $id
-     * @return array
+     * @return mixed
      */
     public function getCommentById($id)
     {
-        $comment = Comments::select(
-            'comments.id',
-            DB::raw("json_build_object(
-                'id', users.id,
-                'name', users.name,
-                'email', users.email
-            ) AS user"),
-            'comments.comment',
-            'comments.created_at',
-        )
-            ->join('users', 'users.id', '=', 'comments.user_id')
-            ->find($id);
+        $comment = Comments::with(['user'])->find($id);
+        return new CommentsResource($comment);
 
-        if (!empty($comment)) {
-            $comment = $comment->toArray();
-            $comment['user'] = json_decode($comment['user'], true);
-        }
-        return $comment;
+        /** Example of native SQL */
+        // $comment = Comments::select(
+        //     'comments.id',
+        //     DB::raw("json_build_object(
+        //         'id', users.id,
+        //         'name', users.name,
+        //         'email', users.email
+        //     ) AS user"),
+        //     'comments.comment',
+        //     'comments.created_at',
+        // )
+        //     ->join('users', 'users.id', '=', 'comments.user_id')
+        //     ->find($id);
+
+        // if (!empty($comment)) {
+        //     $comment = $comment->toArray();
+        //     $comment['user'] = json_decode($comment['user'], true);
+        // }
+        // return $comment;
     }
 
     /**
