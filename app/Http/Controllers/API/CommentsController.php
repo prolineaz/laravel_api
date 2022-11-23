@@ -36,7 +36,7 @@ class CommentsController extends Controller
      */
     public function index(CommentsService $service)
     {
-        return ['status' => 'success', 'posts' => $service->getAllComments()];
+        return ['status' => 'success', 'comments' => $service->getAllComments()];
     }
     /**
      * @OA\Post(
@@ -107,7 +107,7 @@ class CommentsController extends Controller
     public function show(CommentsService $service, $id)
     {
         if ($post = $service->getCommentById($id)) {
-            return ['status' => 'success', 'post' => $post];
+            return ['status' => 'success', 'comment' => $post];
         } else {
             return response()->json(['status' => 'error', 'message' => 'Comment not found'], 404);
         }
@@ -185,7 +185,7 @@ class CommentsController extends Controller
     public function destroy(CommentsService $service, $id)
     {
         if ($service->destroyPostById($id)) {
-            return ['status' => 'success', 'message' => 'Post deleted'];
+            return ['status' => 'success', 'message' => 'Comment deleted'];
         } else {
             return ['status' => 'error', 'message' => 'Restricted'];
         }

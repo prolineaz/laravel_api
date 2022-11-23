@@ -81,7 +81,7 @@ class CommentsTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonStructure([
-                'status', 'post'
+                'status', 'comment'
             ]);
     }
 
