@@ -41,7 +41,7 @@ Password: 123456
 docker-compose exec app php artisan test
 ```
 
-![](https://raw.githubusercontent.com/prolineaz/laravel_api/master/test.png)
+![php artisan test](https://raw.githubusercontent.com/prolineaz/laravel_api/master/test.png)
 
 ## API
 
@@ -113,3 +113,7 @@ docker-compose exec app php artisan test
 **Method**:  GET,  **Action**: Return all users with posts and all comments which the current user left under any post 
 
 `/api/users`
+
+
+
+![Swagger](https://raw.githubusercontent.com/prolineaz/laravel_api/master/swagger.png)
