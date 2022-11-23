@@ -19,4 +19,14 @@ class Posts extends Model
         'title',
         'description',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(\App\Models\Comments::class, 'post_id');
+    }
 }

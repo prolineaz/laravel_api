@@ -19,4 +19,9 @@ class Comments extends Model
         'post_id',
         'comment',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 }
